@@ -1,27 +1,38 @@
 console.log("Code your solution!")
-const form = document.querySelector("form");
+const form = document.querySelector('#form');
+const input = document.querySelector('#todo');
+const errorPara = document.querySelector('#err');
+const ul = document.querySelector('#result');
 
-form.addEventListener("submit", (event) => {
-    event.preventDefault();
-    let todo = event.target.todo.value;
-    const li = document.createElement("li");
-    li.textContent = todo;
-    const p = document.createElement("p");
-    const ul = document.querySelector("ul");
+form.addEventListener('submit', (event) => {
+  event.preventDefault();
+  const todoText = input.value;
 
-    if (!todo) {
-        p.textContent = "Error! Todo can not be empty";
-        ul.prepend(p);
-    } else {
-        ul.append(li);
+  const todos = todoText.split('\n');
+  todos.forEach((todo) => {
+    if (todo.trim() !== '') {
+      const li = document.createElement('li');
+      li.textContent = todo.trim();
+      
+      const deleteButton = document.createElement('button');
+      deleteButton.textContent = 'Delete';
+      deleteButton.classList.add('delete-button');
+      li.appendChild(deleteButton);
+
+      deleteButton.addEventListener('click', () => {
+        li.remove();
+      });
+
+      li.addEventListener('click', (event) => {
+        const clickedLi = event.target;
+        clickedLi.classList.toggle('completed');
+      });
+
+      ul.appendChild(li);
     }
+  });
 
-    form.reset();
-
-    let lis = document.querySelectorAll("li");
-    for (let li of lis) {
-        li.addEventListener("click", (event) => {
-            event.target.style.textDecoration = "line-through";
-        });
-    }
+  input.value = '';
+  errorPara.textContent = '';
+  form.reset();
 });
