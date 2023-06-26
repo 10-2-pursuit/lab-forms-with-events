@@ -14,6 +14,23 @@ function createListTemplate(todo){
     const li = document.createElement("li")
     li.textContent = todo
 
+    const removeButton = document.createElement("button")
+    removeButton.innerText = "remove"
+
+    li.addEventListener("click", (e) => {
+        if(li.getAttribute("style")) {
+            li.toggleAttribute("style")
+        } else {
+            li.setAttribute("style","text-decoration: line-through")
+        }
+    })
+
+    li.append(removeButton)
+
+    removeButton.addEventListener("click", (e) => {
+        li.remove()
+    })
+
     return li
 }
 
