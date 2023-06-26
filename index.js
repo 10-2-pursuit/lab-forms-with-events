@@ -1,9 +1,6 @@
 const h1 = document.querySelector("h1");
-
 let input = document.createElement("input");
-
 let body = document.querySelector("body");
-
 let errorMessage = document.createElement("p");
 errorMessage.style.color = "green";
 
